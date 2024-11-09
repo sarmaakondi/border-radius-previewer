@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Toast from "./Toast";
 
 function BorderBox() {
     const [borderRadius, setBorderRadius] = useState({
@@ -7,6 +8,11 @@ function BorderBox() {
         bottomLeft: 0,
         bottomRight: 0,
     });
+    const [showToast, setShowToast] = useState(false);
+
+    const handleToastClose = () => {
+        setShowToast(false);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,20 +31,27 @@ function BorderBox() {
         `;
 
         navigator.clipboard.writeText(cssSyntax);
-        alert("CSS syntax copied to clipboard!");
+        setShowToast(true);
     };
 
     return (
         <div className="flex flex-col items-center justify-center space-y-10">
             <div
-                className="border-4 border-gray-500 w-80 h-60 md:w-120 md:h-80 lg:w-140 lg:h-100"
+                className="border-4 border-gray-500 w-80 h-60 md:w-120 md:h-80 lg:w-140 lg:h-100 flex items-center justify-center"
                 style={{
                     borderTopLeftRadius: `${borderRadius.topLeft}px`,
                     borderTopRightRadius: `${borderRadius.topRight}px`,
                     borderBottomLeftRadius: `${borderRadius.bottomLeft}px`,
                     borderBottomRightRadius: `${borderRadius.bottomRight}px`,
                 }}
-            ></div>
+            >
+                {showToast && (
+                    <Toast
+                        message="CSS copied to clipboard!"
+                        onClose={handleToastClose}
+                    />
+                )}
+            </div>
             <div className="flex flex-col md:flex-row lg:flex-row gap-4 md:gap-10 lg:gap-10">
                 <div className="flex flex-row items-center justify-between space-x-12 md:flex-col md:space-x-0 lg:flex-col font-mono gap-2">
                     <label htmlFor="topLeft">Top-L</label>
