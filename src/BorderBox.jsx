@@ -16,6 +16,18 @@ function BorderBox() {
         });
     };
 
+    const copyToClipboard = () => {
+        const cssSyntax = `
+        border-top-left-radius: ${borderRadius.topLeft}px;
+        border-top-right-radius: ${borderRadius.topRight}px;
+        border-bottom-left-radius: ${borderRadius.bottomLeft}px;
+        border-bottom-right-radius: ${borderRadius.bottomRight}px;
+        `;
+
+        navigator.clipboard.writeText(cssSyntax);
+        alert("CSS syntax copied to clipboard!");
+    };
+
     return (
         <div className="flex flex-col items-center justify-center space-y-10">
             <div
@@ -51,7 +63,7 @@ function BorderBox() {
                     />
                 </div>
                 <div className="flex flex-row items-center justify-between md:flex-col lg:flex-col font-mono gap-2">
-                    <label htmlFor="BottomLeft">Bottom-L</label>
+                    <label htmlFor="bottomLeft">Bottom-L</label>
                     <input
                         type="number"
                         name="bottomLeft"
@@ -62,7 +74,7 @@ function BorderBox() {
                     />
                 </div>
                 <div className="flex flex-row items-center justify-between md:flex-col lg:flex-col font-mono gap-2">
-                    <label htmlFor="BottomRight">Bottom-R</label>
+                    <label htmlFor="bottomRight">Bottom-R</label>
                     <input
                         type="number"
                         name="bottomRight"
@@ -73,7 +85,10 @@ function BorderBox() {
                     />
                 </div>
             </div>
-            <button className="bg-gray-500 hover:bg-gray-700 px-10 py-4 rounded-full uppercase text-white text-center text-xl md:text-2xl lg:text-3xl font-mono font-bold">
+            <button
+                className="bg-gray-500 hover:bg-gray-700 px-10 py-4 rounded-full uppercase text-white text-center text-xl md:text-2xl lg:text-3xl font-mono font-bold"
+                onClick={copyToClipboard}
+            >
                 copy css
             </button>
         </div>
