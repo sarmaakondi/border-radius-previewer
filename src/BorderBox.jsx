@@ -17,7 +17,7 @@ function BorderBox() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center mt-4 space-y-14">
+        <div className="flex flex-col items-center justify-center space-y-10">
             <div
                 className="border-4 border-gray-500 w-80 h-60 md:w-120 md:h-80 lg:w-140 lg:h-100"
                 style={{
@@ -73,6 +73,9 @@ function BorderBox() {
                     />
                 </div>
             </div>
+            <button className="bg-gray-500 hover:bg-gray-700 px-10 py-4 rounded-full uppercase text-white text-center text-xl md:text-2xl lg:text-3xl font-mono font-bold">
+                copy css
+            </button>
         </div>
     );
 }
