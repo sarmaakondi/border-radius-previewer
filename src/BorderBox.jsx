@@ -16,19 +16,30 @@ function BorderBox() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setBorderRadius({
-            ...borderRadius,
-            [name]: value,
-        });
+        if (/^\d*$/.test(value)) {
+            setBorderRadius((prevBorderRadius) => ({
+                ...prevBorderRadius,
+                [name]: value,
+            }));
+        }
+    };
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        setBorderRadius((prevBorderRadius) => ({
+            ...prevBorderRadius,
+            [name]: value === "" ? 0 : Number(value),
+        }));
     };
 
     const copyToClipboard = () => {
-        const cssSyntax = `
-        border-top-left-radius: ${borderRadius.topLeft}px;
-        border-top-right-radius: ${borderRadius.topRight}px;
-        border-bottom-left-radius: ${borderRadius.bottomLeft}px;
-        border-bottom-right-radius: ${borderRadius.bottomRight}px;
-        `;
+        const cssSyntax = `border-top-left-radius: ${
+            borderRadius.topLeft
+        }px;${"\n"}border-top-right-radius: ${
+            borderRadius.topRight
+        }px;${"\n"}border-bottom-left-radius: ${
+            borderRadius.bottomLeft
+        }px;${"\n"}border-bottom-right-radius: ${borderRadius.bottomRight}px;`;
 
         navigator.clipboard.writeText(cssSyntax);
         setShowToast(true);
@@ -62,6 +73,8 @@ function BorderBox() {
                         className="border border-gray-600 rounded-md w-24 h-12 md:w-20 md:h-16 lg:w-24 lg:h-16 text-center text-xl md:text-2xl lg:text-3xl"
                         value={borderRadius.topLeft}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        min="0"
                     />
                 </div>
                 <div className="flex flex-row items-center justify-between md:flex-col lg:flex-col font-mono gap-2">
@@ -73,6 +86,8 @@ function BorderBox() {
                         className="border border-gray-600 rounded-md w-24 h-12 md:w-20 md:h-16 lg:w-24 lg:h-16 text-center text-xl md:text-2xl lg:text-3xl"
                         value={borderRadius.topRight}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        min="0"
                     />
                 </div>
                 <div className="flex flex-row items-center justify-between md:flex-col lg:flex-col font-mono gap-2">
@@ -84,6 +99,8 @@ function BorderBox() {
                         className="border border-gray-600 rounded-md w-24 h-12 md:w-20 md:h-16 lg:w-24 lg:h-16 text-center text-xl md:text-2xl lg:text-3xl"
                         value={borderRadius.bottomLeft}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        min="0"
                     />
                 </div>
                 <div className="flex flex-row items-center justify-between md:flex-col lg:flex-col font-mono gap-2">
@@ -95,6 +112,8 @@ function BorderBox() {
                         className="border border-gray-600 rounded-md w-24 h-12 md:w-20 md:h-16 lg:w-24 lg:h-16 text-center text-xl md:text-2xl lg:text-3xl"
                         value={borderRadius.bottomRight}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        min="0"
                     />
                 </div>
             </div>
